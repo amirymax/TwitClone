@@ -10,7 +10,10 @@
               {% if meeps %}
                 {% for meep in meeps %}
                   <div class="alert alert-dark" role="alert">
-                      {{ meep }}
+                    {{ meep.body }} <br>
+                    <small class="text-muted">
+                      {{ meep.created_at }} By @{{ meep.user.username }}
+                    </small>
                     </div>
                 {% endfor %}
               {% endif %}
