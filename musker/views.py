@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Profile, Meep
 from django.contrib import messages
 from .forms import MeepForm
+from django.contrib.auth import authenticate, login, logout
+
 
 def home(request):
     if request.user.is_authenticated:
@@ -31,6 +33,7 @@ def profile_list(request):
 
 
 def profile(request, pk):
+
     if request.user.is_authenticated:
         profile = Profile.objects.get(user_id = pk)
         meeps = Meep.objects.filter(user_id = pk).order_by('-created_at')  # Get all meeps from this profile
@@ -54,3 +57,10 @@ def profile(request, pk):
     else:
         messages.success(request, ('You Must Be Logged In To View This Page...'))
         return redirect('home')
+
+def login_user(request):
+    return render(request, "login.html", {})
+
+
+def logout_user(request):
+    pass
