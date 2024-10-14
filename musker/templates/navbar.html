@@ -14,9 +14,13 @@
           <li class="nav-item"></li>
             <a class="nav-link" href="{% url 'profile' request.user.id %}">My Profile</a>
           </li>
+
+          <li class="nav-item"></li>
+            <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+          </li>
           {% else %}
           <li class="nav-item"></li>
-            <a class="nav-link" href="{% url 'login' request.user.id %}">Login</a>
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
           </li>
           {% endif %}
         </ul>
