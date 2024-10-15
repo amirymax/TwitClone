@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Profile, Meep
 from django.contrib import messages
-from .forms import MeepForm
+from .forms import MeepForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
 
 
@@ -78,4 +78,25 @@ def logout_user(request):
     logout(request)
     messages.success(request, ("You have been logged out"))
     return redirect('home')
+
+def register_user(request):
+    form = SignUpForm()
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password1']
+            # first_name = form.cleaned_data['first_name']
+            # last_name = form.cleaned_data['last_name']
+            # email = form.cleaned_data['email']
+
+            # Log in user
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(request, ("You have successfully registered! Welcome"))
+
+            return redirect('home')
+    
+    return render(request, "register.html", {'form':form})
 
