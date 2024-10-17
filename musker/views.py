@@ -3,7 +3,7 @@ from .models import Profile, Meep
 from django.contrib import messages
 from .forms import MeepForm, SignUpForm
 from django.contrib.auth import authenticate, login, logout
-
+from django.contrib.auth.models import User
 
 def home(request):
     if request.user.is_authenticated:
@@ -30,7 +30,6 @@ def profile_list(request):
     else:
         messages.success(request, ('You Must Be Logged In To View This Page...'))
         return redirect('home')
-
 
 def profile(request, pk):
 
@@ -99,4 +98,20 @@ def register_user(request):
             return redirect('home')
     
     return render(request, "register.html", {'form':form})
+
+def update_user(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        form = SignUpForm(request.POST or None, instance = current_user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, ('Your Information has been updated successfully'))
+            login(request, current_user)
+            return redirect('home')
+        return render(request, "update_user.html", {"form":form})
+    else:
+        messages.success(request, ('You Must Be Logged In To View This Page...'))
+        return redirect('home')
+
 
