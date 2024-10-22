@@ -33,6 +33,9 @@ A Twitter clone built with Django. This project is for learning purposes only.
 3. Create a new meep
 4. Follow another user
 5. Unfollow another user
+6. Like a meep
+7. Share the meep
+
 
 ## TODO
 
