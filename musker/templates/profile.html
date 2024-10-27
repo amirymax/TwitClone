@@ -52,8 +52,28 @@
               <br><br><br>  
               {% if profile.profile_image %}
               <image src="{{ profile.profile_image.url }}" class="rounded-circle" style="width: 200px; height: 200px; object-fit: cover"/>
-              {% endif %}
               <br><br>
+              {% endif %}
+              {% if profile.homepage_link %}
+                <a href="{{ profile.homepage_link }}" target="_blank">
+                  <i class="fa-solid fa-link"></i></a>
+              {% endif %}
+                
+              <!-- putting all he other links if they're added to the profile -->
+              {% if profile.facebook_link %}
+                <a href="{{ profile.facebook_link }}" target="_blank">
+                  <i class="fa-brands fa-facebook"></i></a>
+              {% endif %} 
+
+              {% if profile.instagram_link %}
+                <a href="{{ profile.instagram_link }}" target="_blank">
+                  <i class="fa-brands fa-instagram"></i></a>
+              {% endif %} 
+              <br><br>
+              {% if profile.profile_bio %}
+              <p style="text-align: justify;">{{ profile.profile_bio }}</p>
+              {% endif %}
+
                 <div class="card">
                     <h5 class="card-header">Following</h5>
                     <div class="card-body">
