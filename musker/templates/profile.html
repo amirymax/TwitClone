@@ -58,13 +58,13 @@
                 <a href="{{ profile.homepage_link }}" target="_blank">
                   <i class="fa-solid fa-link"></i></a>
               {% endif %}
-                
+              &nbsp;&nbsp;
               <!-- putting all he other links if they're added to the profile -->
               {% if profile.facebook_link %}
                 <a href="{{ profile.facebook_link }}" target="_blank">
                   <i class="fa-brands fa-facebook"></i></a>
               {% endif %} 
-
+              &nbsp;&nbsp;
               {% if profile.instagram_link %}
                 <a href="{{ profile.instagram_link }}" target="_blank">
                   <i class="fa-brands fa-instagram"></i></a>
@@ -79,7 +79,10 @@
                     <div class="card-body">
                       <p class="card-text">
                         {% for following in profile.follows.all %}
-                            <a href="{% url 'profile' following.user.id %}">@{{ following }}</a><br>
+                            <a href="{% url 'profile' following.user.id %}">@{{ following }}</a>
+                            <a href="{% url 'unfollow' following.user.id %}">
+                              <i class="fa fa-undo" aria-hidden="true" style="color: gray;"></i>
+                            </a><br>
                         {% endfor %}
                       </p>
                     </div>
@@ -104,7 +107,7 @@
                     {% if profile in user.profile.follows.all %}
                       <button class="btn btn-outline-danger" type="submit" name="follow" value="unfollow">
                         Unfollow @{{ profile.user.username }}
-                      </button>                    
+                      </button>
                     {% else %}
                       <button class="btn btn-outline-success" type="submit" name="follow" value="follow">
                         Follow @{{ profile.user.username }}
