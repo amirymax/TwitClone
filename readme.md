@@ -47,9 +47,4 @@ A Twitter clone built with Django. This project is for learning purposes only.
 * Add a form to delete a comment
 * Add a form to delete a reply
 * Make the site look better
-* Add a way to report a meep
-* Add a way to report a user
-* Add a way to block a user
-* Add a way to mute a user
-* Add a way to report a comment
-* Add a way to report a reply
+
