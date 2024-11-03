@@ -57,6 +57,7 @@ def follow(request, pk):
 
 
 
+
 def profile(request, pk):
 	if request.user.is_authenticated:
 		profile = Profile.objects.get(user_id=pk)
@@ -85,16 +86,11 @@ def profile(request, pk):
 
 def followers(request, pk):
 	if request.user.is_authenticated:
-		if request.user.id == pk:
-			profiles = Profile.objects.get(user_id=pk)
-			return render(request, 'followers.html', {"profiles":profiles})
-		else:
-			messages.success(request, ("That's Not Your Profile Page..."))
-			return redirect('home')	
+		profiles = Profile.objects.get(user_id=pk)
+		return render(request, 'followers.html', {"profiles":profiles})
 	else:
 		messages.success(request, ("You Must Be Logged In To View This Page..."))
 		return redirect('home')
-
 
 def follows(request, pk):
 	if request.user.is_authenticated:
