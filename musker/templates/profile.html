@@ -78,7 +78,7 @@
                     <h5 class="card-header">Following</h5>
                     <div class="card-body">
                       <p class="card-text">
-                        {% for following in profile.follows.all %}
+                        {% for following in profile.follows.all|slice:3 %}
                             <a href="{% url 'profile' following.user.id %}">@{{ following }}</a>
                             <a href="{% url 'unfollow' following.user.id %}">
                               <i class="fa fa-undo" aria-hidden="true" style="color: gray;"></i>
@@ -86,6 +86,10 @@
                         {% endfor %}
                       </p>
                     </div>
+                    <div class="card-footer">
+                      <a href="{% url 'follows' profile.user.id %}" 
+                  class="btn btn-sm btn-outline-secondary">See all...</a>
+                </div>
                   </div>
                 
                   <br><br>
@@ -110,7 +114,8 @@
                       </p>
                     </div>
                     <div class="card-footer">
-                    <a href="{% url 'followers' profile.user.id %}">See all...</a>
+                    <a href="{% url 'followers' profile.user.id %}" 
+                    class="btn btn-sm btn-outline-secondary">See all...</a>
                   </div>
                   </div> 
                   <br>
