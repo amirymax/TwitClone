@@ -173,9 +173,6 @@ def meep_like(request, pk):
 		
 		return redirect(request.META.get("HTTP_REFERER"))
 
-
-
-
 	else:
 		messages.success(request, ("You Must Be Logged In To View That Page..."))
 		return redirect('home')
@@ -184,67 +181,22 @@ def meep_like(request, pk):
 def meep_show(request, pk):
 	meep = get_object_or_404(Meep, id=pk)
 	if meep:
-		return render(request, "show_meep.html", {'meep':meep})
+		return render(request, "meep_show.html", {'meep':meep})
 	else:
 		messages.success(request, ("That Meep Does Not Exist..."))
 		return redirect('home')		
 
-
 def delete_meep(request, pk):
 	if request.user.is_authenticated:
 		meep = get_object_or_404(Meep, id=pk)
-		# Check to see if you own the meep
 		if request.user.username == meep.user.username:
-			# Delete The Meep
 			meep.delete()
-			
-			messages.success(request, ("The Meep Has Been Deleted!"))
-			return redirect(request.META.get("HTTP_REFERER"))	
+			messages.success(request, ("Your meep was deleted"))
+			return redirect(request.META.get("HTTP_REFERER"))
 		else:
-			messages.success(request, ("You Don't Own That Meep!!"))
-			return redirect('home')
-
+			messages.success(request, ("You don't own that meep"))
+			return redirect(request.META.get("HTTP_REFERER"))
 	else:
-		messages.success(request, ("Please Log In To Continue..."))
+		messages.success(request, ("Please Log In to View This Page..."))
 		return redirect(request.META.get("HTTP_REFERER"))
-
-
-def edit_meep(request,pk):
-	if request.user.is_authenticated:
-		# Grab The Meep!
-		meep = get_object_or_404(Meep, id=pk)
-
-		# Check to see if you own the meep
-		if request.user.username == meep.user.username:
-			
-			form = MeepForm(request.POST or None, instance=meep)
-			if request.method == "POST":
-				if form.is_valid():
-					meep = form.save(commit=False)
-					meep.user = request.user
-					meep.save()
-					messages.success(request, ("Your Meep Has Been Updated!"))
-					return redirect('home')
-			else:
-				return render(request, "edit_meep.html", {'form':form, 'meep':meep})
 	
-		else:
-			messages.success(request, ("You Don't Own That Meep!!"))
-			return redirect('home')
-
-	else:
-		messages.success(request, ("Please Log In To Continue..."))
-		return redirect('home')
-
-
-
-def search(request):
-	if request.method == "POST":
-		# Grab the form field input
-		search = request.POST['search']
-		# Search the database
-		searched = Meep.objects.filter(body__contains = search)
-
-		return render(request, 'search.html', {'search':search, 'searched':searched})
-	else:
-		return render(request, 'search.html', {})
