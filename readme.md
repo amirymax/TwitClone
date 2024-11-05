@@ -39,9 +39,6 @@ A Twitter clone built with Django. This project is for learning purposes only.
 
 ## TODO
 
-* Add a form to edit a meep
-* Add a form to delete a meep
-* Add a form to like a meep
 * Add a form to comment on a meep
 * Add a form to reply to a comment
 * Add a form to delete a comment
