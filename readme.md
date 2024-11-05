@@ -36,12 +36,3 @@ A Twitter clone built with Django. This project is for learning purposes only.
 6. Like a meep
 7. Share the meep
 
-
-## TODO
-
-* Add a form to comment on a meep
-* Add a form to reply to a comment
-* Add a form to delete a comment
-* Add a form to delete a reply
-* Make the site look better
-

@@ -224,3 +224,23 @@ def edit_meep(request, pk):
 		messages.success(request, ("Please Log In to View This Page..."))
 		return redirect(request.META.get("HTTP_REFERER"))
 		
+def search(request):
+	if request.method == "POST":
+		search = request.POST['search']
+		
+		searched = Meep.objects.filter(body__contains = search).order_by("-created_at")
+
+		return render(request, 'search.html', {'search': search, 'searched':searched})
+	else:
+		return render(request, 'search.html', {})
+
+def search_users(request):
+	if request.method == 'POST':
+		search = request.POST['search']
+		# get all the usernames that match the search
+
+		searched = User.objects.filter(username__contains = search)
+		
+		return render(request, 'search_users.html', {'search': search, 'searched':searched})
+	else:
+		return render(request, 'search_users.html', {})
